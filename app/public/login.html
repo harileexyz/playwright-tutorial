@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Practice</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Login Practice</h1>
+    </header>
+    <main>
+      <section class="card">
+        <h2>Student Login</h2>
+        <form id="login-form">
+          <label for="username">Username</label>
+          <input id="username" name="username" placeholder="Enter username" />
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Enter password" />
+
+          <button type="submit">Login</button>
+        </form>
+
+        <div id="login-message" aria-live="polite"></div>
+        <section id="dashboard" hidden>
+          <h3>Dashboard</h3>
+          <p>Welcome to the student dashboard.</p>
+        </section>
+      </section>
+
+      <script>
+        const form = document.getElementById('login-form');
+        const message = document.getElementById('login-message');
+        const dashboard = document.getElementById('dashboard');
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+
+          message.textContent = data.message;
+          message.className = `message ${response.ok ? 'success' : 'error'}`;
+          dashboard.hidden = !response.ok;
+        });
+      </script>
+    </main>
+  </body>
+</html>

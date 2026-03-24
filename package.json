@@ -1,0 +1,34 @@
+{
+  "name": "playwright-tutorial",
+  "version": "1.0.0",
+  "description": "Practical Playwright training repo for UI and API automation teaching",
+  "scripts": {
+    "app": "node app/server.js",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:examples": "playwright test --grep-invert \"student exercise\"",
+    "test:unit:01": "playwright test units/01-getting-started",
+    "test:unit:02": "playwright test units/02-locators-and-actions",
+    "test:unit:03": "playwright test units/03-assertions",
+    "test:unit:04": "playwright test units/04-ui-test-flows",
+    "test:unit:05": "playwright test units/05-framework-basics",
+    "test:unit:06": "playwright test units/06-api-testing",
+    "test:unit:07": "playwright test units/07-config-data-logging-reporting",
+    "test:unit:08": "playwright test units/08-playwright-framework",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "main": "playwright.config.js",
+  "directories": {
+    "doc": "docs"
+  }
+}

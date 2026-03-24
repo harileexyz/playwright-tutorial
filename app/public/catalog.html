@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalog Practice</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Catalog Practice</h1>
+    </header>
+    <main>
+      <section class="card">
+        <h2>Search Products</h2>
+        <label for="search-box">Search</label>
+        <input id="search-box" placeholder="Search products" />
+        <button id="search-button" type="button">Search</button>
+        <p>Cart count: <span id="cart-count" class="badge">0</span></p>
+        <ul id="product-list" class="product-list"></ul>
+      </section>
+
+      <script>
+        const searchButton = document.getElementById('search-button');
+        const searchBox = document.getElementById('search-box');
+        const productList = document.getElementById('product-list');
+        const cartCount = document.getElementById('cart-count');
+        let count = 0;
+
+        async function renderProducts(query = '') {
+          const response = await fetch(`/api/products?q=${encodeURIComponent(query)}`);
+          const data = await response.json();
+
+          productList.innerHTML = '';
+
+          for (const item of data.items) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+              <span>${item.name}</span>
+              <button type="button" data-testid="add-to-cart-${item.id}">Add to cart</button>
+            `;
+            productList.appendChild(li);
+          }
+
+          document.querySelectorAll('[data-testid^="add-to-cart-"]').forEach((button) => {
+            button.addEventListener('click', () => {
+              count += 1;
+              cartCount.textContent = String(count);
+            });
+          });
+        }
+
+        searchButton.addEventListener('click', async () => {
+          await renderProducts(searchBox.value);
+        });
+
+        renderProducts();
+      </script>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widgets Practice</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Widgets Practice</h1>
+    </header>
+    <main class="grid two-col">
+      <section class="card">
+        <h2>Profile Preferences</h2>
+        <label>
+          <input id="newsletter" type="checkbox" />
+          Subscribe to newsletter
+        </label>
+
+        <label for="role-select">Select role</label>
+        <select id="role-select">
+          <option value="">Choose a role</option>
+          <option value="tester">Tester</option>
+          <option value="developer">Developer</option>
+          <option value="manager">Manager</option>
+        </select>
+      </section>
+
+      <section class="card">
+        <h2>Feedback Form</h2>
+        <label for="feedback-email">Email</label>
+        <input id="feedback-email" placeholder="name@example.com" />
+
+        <label for="feedback-message">Message</label>
+        <input id="feedback-message" placeholder="Share your feedback" />
+
+        <button id="submit-feedback" type="button">Send feedback</button>
+        <div id="feedback-status" aria-live="polite"></div>
+      </section>
+
+      <script>
+        const submitButton = document.getElementById('submit-feedback');
+        const status = document.getElementById('feedback-status');
+
+        submitButton.addEventListener('click', () => {
+          const email = document.getElementById('feedback-email').value;
+          const message = document.getElementById('feedback-message').value;
+
+          if (!email || !message) {
+            status.textContent = 'Please complete all feedback fields';
+            status.className = 'message error';
+            return;
+          }
+
+          status.textContent = 'Feedback submitted';
+          status.className = 'message success';
+        });
+      </script>
+    </main>
+  </body>
+</html>
