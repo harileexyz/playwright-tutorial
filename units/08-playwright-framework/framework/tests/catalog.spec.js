@@ -1,6 +1,8 @@
 const { test, expect } = require('../fixtures/testFixtures');
 
-test('catalog search and add-to-cart using framework structure', async ({ catalogPage }) => {
+test('catalog search and add-to-cart using framework structure', async ({ loginPage, catalogPage  }) => {
+  await loginPage.open();
+  await loginPage.login('student', 'Password123');
   await catalogPage.open();
   // Demo-only wait so students can observe the catalog page.
   await catalogPage.page.waitForTimeout(1000);
